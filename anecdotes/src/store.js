@@ -1,4 +1,3 @@
-
 import { create } from 'zustand'
 
 const anecdotesAtStart = [
@@ -27,6 +26,10 @@ const useAnecdoteStore = create((set) => ({
       )
       return { anecdotes: updatedAnecdotes }
     }),
+    add: (content) => set((state) => {
+      const newAnecdote = { content, id: getId(), votes: 0 }
+      return { anecdotes: state.anecdotes.concat(newAnecdote) }
+    })
   },
 }))
 

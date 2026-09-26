@@ -1,3 +1,4 @@
+import AnecdoteForm from "./components/AnecdoteForm"
 import { useAnecdotes, useAnecdoteActions } from "./store"
 
 const App = () => {
@@ -16,13 +17,7 @@ const App = () => {
           </div>
         </div>
       ))}
-      <h2>create new</h2>
-      <form>
-        <div>
-          <input data-testid="new" />
-        </div>
-        <button>create</button>
-      </form>
+      <AnecdoteForm />
     </div>
   )
 }

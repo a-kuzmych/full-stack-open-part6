@@ -1,13 +1,5 @@
 import { create } from "zustand";
 
-const getId = () => (100000 * Math.random()).toFixed(0);
-
-const asObject = (anecdote) => ({
-  content: anecdote,
-  id: getId(),
-  votes: 0,
-});
-
 const useAnecdoteStore = create((set) => ({
   anecdotes: [],
   filter: "",
@@ -21,13 +13,12 @@ const useAnecdoteStore = create((set) => ({
         );
         return { anecdotes: updatedAnecdotes };
       }),
-    add: (content) =>
-      set((state) => {
-        const newAnecdote = { content, id: getId(), votes: 0 };
-        return { anecdotes: state.anecdotes.concat(newAnecdote) };
-      }),
+    add: (newAnecdote) =>
+      set((state) => ({
+        anecdotes: state.anecdotes.concat(newAnecdote),
+      })),
     setFilter: (value) => set(() => ({ filter: value })),
-    initialize: anecdotes => set(() => ({anecdotes}))
+    initialize: (anecdotes) => set(() => ({ anecdotes })),
   },
 }));
 
@@ -39,7 +30,7 @@ export const useAnecdotes = () => {
     return anecdotes;
   }
   return anecdotes.filter((anecdote) =>
-    anecdote.content.toLowerCase().includes(filter.toLowerCase())
+    anecdote.content.toLowerCase().includes(filter.toLowerCase()),
   );
 };
 export const useAnecdoteActions = () =>

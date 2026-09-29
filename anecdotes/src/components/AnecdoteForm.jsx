@@ -1,14 +1,17 @@
 import { useAnecdoteActions } from "../store"
+import { useNotificationActions } from "../notificationStore";
 import anecdoteService from "../../services/anecdotes";
 
 const AnecdoteForm = () => {
   const { add } = useAnecdoteActions();
+  const { showNotification } = useNotificationActions();
 
   const addAnecdote = async (e) => {
     e.preventDefault();
     const content = e.target.anecdote.value
     const newAnecdote = await anecdoteService.createNew(content)
     add(newAnecdote)
+    showNotification(`you created '${newAnecdote.content}'`)
     e.target.reset()
   }
 

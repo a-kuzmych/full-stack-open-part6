@@ -20,6 +20,12 @@ const useAnecdoteStore = create((set, get) => ({
         ),
       }));
     },
+    remove: async (id) => {
+      await anecdoteService.remove(id);
+      set((state) => ({
+        anecdotes: state.anecdotes.filter((item) => item.id !== id),
+      }));
+    },
     add: (newAnecdote) =>
       set((state) => ({
         anecdotes: state.anecdotes.concat(newAnecdote),

@@ -40,13 +40,29 @@ describe("anecdote sorting", () => {
 
   it("returns anecdotes sorted by votes in descending order", () => {
     const { result } = renderHook(() => useAnecdotes());
-
-    // Перевіряємо, чи повернулися всі 3 анекдоти
     expect(result.current).toHaveLength(3);
 
-    // Перевіряємо правильність сортування (10 -> 7 -> 5)
     expect(result.current[0].content).toBe("Anecdote 2");
     expect(result.current[1].content).toBe("Anecdote 3");
     expect(result.current[2].content).toBe("Anecdote 1");
+  });
+
+  describe("anecdote filtering", () => {
+    beforeEach(() => {
+      useAnecdoteStore.setState({
+        anecdotes: [
+          { id: "1", content: "Anecdote 1", votes: 5 },
+          { id: "2", content: "Anecdote 2", votes: 10 },
+          { id: "3", content: "Anecdote 3", votes: 7 },
+        ],
+        filter: "2",
+      });
+    });
+
+    it("returns anecdotes filtered by the filter string", () => {
+      const { result } = renderHook(() => useAnecdotes());
+      expect(result.current).toHaveLength(1);
+      expect(result.current[0].content).toBe("Anecdote 2");
+    });
   });
 });

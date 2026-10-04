@@ -14,7 +14,7 @@ const Notification = () => {
     return null;
   }
 
-  return <div style={style}>{notification}</div>;
+  return <div style={style} data-testid="notification">{notification}</div>;
 };
 
 export default Notification;

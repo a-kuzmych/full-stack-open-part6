@@ -28,9 +28,9 @@ export const useAnecdotes = () => {
 
   const updateAnecdoteMutation = useMutation({
     mutationFn: updateAnecdote,
-    onSuccess: () => {
+    onSuccess: (updatedAnecdote) => {
       queryClient.invalidateQueries({ queryKey: ["anecdotes"] });
-      notify("vote registered");
+      notify(`anecdote ${updatedAnecdote.content} voted`);
     },
     onError: () => notify("voting failed"),
   });
